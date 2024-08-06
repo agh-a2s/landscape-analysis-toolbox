@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "landscape-analysis-toolbox"
+version = "0.1.0"
+description = "Toolbox for fitness landscape analysis."
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+networkx = "^3.3"
+scipy = "^1.14.0"
+matplotlib = "^3.9.0"
+numpy = "^2.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
