@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Any, Callable
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -30,6 +30,16 @@ def plot_network(graph: nx.DiGraph, seed: int | None = 42) -> None:
 
 
 class LocalOptimaNetwork:
+    """
+    @inproceedings{adair2019local,
+        title={Local optima networks for continuous fitness landscapes},
+        author={Adair, Jason and Ochoa, Gabriela and Malan, Katherine M},
+        booktitle={Proceedings of the Genetic and Evolutionary Computation Conference Companion},
+        pages={1407--1414},
+        year={2019}
+    }
+    """
+
     def __init__(
         self,
         objective_function: Callable,
@@ -117,7 +127,7 @@ class LocalOptimaNetwork:
 
     def compress_graph(self) -> nx.DiGraph:
         compressed_graph = nx.DiGraph()
-        fitness_to_nodes = {}
+        fitness_to_nodes: dict[float, Any] = {}
 
         # Group nodes by fitness value
         for node, data in self.graph.nodes(data=True):
