@@ -2,8 +2,16 @@ import numpy as np
 from .utils import apply_bounds
 
 
+def get_starting_zones(num_zones: int) -> list[np.ndarray]:
+    # TODO: read Malan and Engelbrecht (2014) to understand how to generate different starting zones
+    return [np.random.choice([True, False], size=num_zones) for _ in range(num_zones)]
+
+
 def progressive_random_walk(
-    bounds: np.ndarray, num_steps: int, step_size: float, starting_zone: np.ndarray
+    bounds: np.ndarray,
+    num_steps: int,
+    step_size: np.ndarray | float,
+    starting_zone: np.ndarray,
 ) -> np.ndarray:
     """
     @inproceedings{malan2014progressive,
