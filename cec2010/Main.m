@@ -1,4 +1,4 @@
- % Main function 
+ % Main function
 clear all;
 global  initial_flag
 format long e;
@@ -46,9 +46,8 @@ Max_Gen=D*100;
 DELTA=10^(-4);
 
 func_num =1; % Function Number
-         
+
 eval(['Xmin=Xmin' int2str(func_num) ';']);
 eval(['Xmax=Xmax' int2str(func_num) ';']);
-    
+
 [val, g, h] = TEC(pop,func_num);
-   

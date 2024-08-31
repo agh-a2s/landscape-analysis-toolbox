@@ -1,6 +1,7 @@
+from abc import ABC, abstractmethod
+
 import numpy as np
 from scipy.io import loadmat
-from abc import ABC, abstractmethod
 
 MIN_PROBLEM_ID = 1
 MAX_PROBLEM_ID = 18
@@ -14,9 +15,7 @@ def read_o_for_problem_id(problem_idx: int) -> np.ndarray:
 class CEC2010Problem(ABC):
     def __init__(self, problem_id: int, bounds: np.ndarray) -> None:
         dim = bounds.shape[0]
-        assert (
-            MIN_PROBLEM_ID <= problem_id <= MAX_PROBLEM_ID
-        ), "Problem ID must be between 1 and 18."
+        assert MIN_PROBLEM_ID <= problem_id <= MAX_PROBLEM_ID, "Problem ID must be between 1 and 18."
         self.problem_id = problem_id
         self.o = read_o_for_problem_id(problem_id)[:dim]
         self.bounds = bounds
@@ -61,9 +60,7 @@ class CEC2010Problem1(CEC2010Problem):
 
     def fitness(self, x: np.ndarray) -> np.ndarray:
         x_shifted = x - self.o
-        f1 = np.sum(np.cos(x_shifted) ** 4, axis=1) - 2 * np.prod(
-            np.cos(x_shifted) ** 2, axis=1
-        )
+        f1 = np.sum(np.cos(x_shifted) ** 4, axis=1) - 2 * np.prod(np.cos(x_shifted) ** 2, axis=1)
 
         f2 = np.sum((np.arange(1, x.shape[1] + 1) * x_shifted**2), axis=1)
 
@@ -93,15 +90,9 @@ class CEC2010Problem02(CEC2010Problem):
         x_shifted = x - self.o
         y = x_shifted - 0.5
 
-        g1 = (
-            10
-            - np.sum(x_shifted**2 - 10 * np.cos(2 * np.pi * x_shifted) + 10, axis=1)
-            / self.dim
-        )
+        g1 = 10 - np.sum(x_shifted**2 - 10 * np.cos(2 * np.pi * x_shifted) + 10, axis=1) / self.dim
 
-        g2 = (
-            np.sum(x_shifted**2 - 10 * np.cos(2 * np.pi * x_shifted) + 10, axis=1)
-        ) / self.dim - 15
+        g2 = (np.sum(x_shifted**2 - 10 * np.cos(2 * np.pi * x_shifted) + 10, axis=1)) / self.dim - 15
 
         h = np.sum(y**2 - 10 * np.cos(2 * np.pi * y) + 10, axis=1) / self.dim - 20
         g3 = self._adjust_equality_constraint(h)
@@ -117,8 +108,7 @@ class CEC2010Problem3(CEC2010Problem):
     def fitness(self, x: np.ndarray) -> np.ndarray:
         x_shifted = x - self.o
         f = np.sum(
-            100 * (x_shifted[:, :-1] ** 2 - x_shifted[:, 1:]) ** 2
-            + (x_shifted[:, :-1] - 1) ** 2,
+            100 * (x_shifted[:, :-1] ** 2 - x_shifted[:, 1:]) ** 2 + (x_shifted[:, :-1] - 1) ** 2,
             axis=1,
         )
         return f
@@ -152,9 +142,7 @@ class CEC2010Problem4(CEC2010Problem):
         )
         h2_adjusted = self._adjust_equality_constraint(h2)
 
-        h3 = np.sum(
-            (x_shifted[:, half_dim:-1] ** 2 - x_shifted[:, half_dim + 1 :]) ** 2, axis=1
-        )
+        h3 = np.sum((x_shifted[:, half_dim:-1] ** 2 - x_shifted[:, half_dim + 1 :]) ** 2, axis=1)  # noqa: E203
         h3_adjusted = self._adjust_equality_constraint(h3)
 
         h4 = np.sum(x_shifted, axis=1)
@@ -180,9 +168,7 @@ class CEC2010Problem13(CEC2010Problem):
         g2 = (50 / self.dim) * np.sum(np.sin(1 / 50 * np.pi * x_shifted), axis=1)
 
         g3 = 75 - 50 * (
-            np.sum(x_shifted**2, axis=1) / 4000
-            - np.prod(np.cos(x_shifted / np.sqrt(np.arange(1, self.dim + 1))))
-            + 1
+            np.sum(x_shifted**2, axis=1) / 4000 - np.prod(np.cos(x_shifted / np.sqrt(np.arange(1, self.dim + 1)))) + 1
         )
 
         g = np.column_stack((g1, g2, g3))

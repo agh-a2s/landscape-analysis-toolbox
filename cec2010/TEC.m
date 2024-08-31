@@ -1,12 +1,12 @@
 function [f,g,h] = TEC(x,I_fno)
 
  [ps,D]=size(x);
- 
+
  global initial_flag
- persistent o M 
- 
+ persistent o M
+
  if(I_fno == 1)
-   
+
       if initial_flag == 0
        load Function1
        o = o(1:D);
@@ -23,10 +23,10 @@ function [f,g,h] = TEC(x,I_fno)
   g = [g1,g2];
   h =zeros(ps,1);
  end
- 
- 
+
+
 if(I_fno==2)
-    
+
       if initial_flag == 0
        load Function2
        o = o(1:D);
@@ -67,12 +67,12 @@ if(I_fno==4)
 end
 
 if(I_fno==5)
-    
+
      if initial_flag == 0
        load Function5
        o = o(1:D);
       end
- 
+
   x = x-repmat(o,size(x,1),1);
   f = max(x,[],2);
   g = zeros(ps,1);
@@ -80,9 +80,9 @@ if(I_fno==5)
   h2 = sum(-x.*cos(0.5*sqrt(abs(x))),2)/D;
   h = [h1,h2];
 end
- 
+
 if(I_fno==6)
-    
+
     if initial_flag == 0
        load Function6
        o = o(1:D);
@@ -93,7 +93,7 @@ if(I_fno==6)
            load Function6_M_30D
        end
     end
-  
+
   z = x - repmat(o,size(x,1),1);
   f = max(z,[],2);
   y = (x + 483.6106156535 - repmat(o,size(x,1),1));
@@ -106,7 +106,7 @@ if(I_fno==6)
 end
 
 if(I_fno==7)
-    
+
      if initial_flag == 0
        load Function7
        o = o(1:D);
@@ -115,8 +115,8 @@ if(I_fno==7)
   z = x + 1;
   f = sum(100*(z(:,1:D-1).^2-z(:,2:D)).^2+(z(:,1:D-1)-1).^2,2);
   g = 0.5-exp(-0.1.*sqrt(sum(x.^2,2)./D))-3*exp(sum(cos(0.1*x),2)./D)+exp(1);
-  h = zeros(ps,1); 
-   
+  h = zeros(ps,1);
+
 end
 
 if(I_fno==8)
@@ -130,13 +130,13 @@ if(I_fno==8)
            load Function8_M_30D
        end
     end
-  
+
   z = x + 1 - repmat(o,size(x,1),1);
   f = sum(100*(z(:,1:D-1).^2-z(:,2:D)).^2+(z(:,1:D-1)-1).^2,2);
   y = (x - repmat(o,size(x,1),1))*M;
   g = 0.5-exp(-0.1.*sqrt(sum(y.^2,2)./D))-3*exp(sum(cos(0.1*y),2)./D)+exp(1);
-  h = zeros(ps,1); 
-   
+  h = zeros(ps,1);
+
  end
 
 if(I_fno ==9)
@@ -149,11 +149,11 @@ if(I_fno ==9)
   f  = sum(100*(z(:,1:D-1).^2-z(:,2:D)).^2+(z(:,1:D-1)-1).^2,2);
   h = sum(x.*sin(sqrt(abs(x))),2);
   g  = zeros(ps,1);
-  
+
 end
 
 if(I_fno ==10)
-  
+
    if initial_flag == 0
        load Function10
        o = o(1:D);
@@ -169,7 +169,7 @@ if(I_fno ==10)
   y = (x - repmat(o,size(x,1),1))*M;
   h = sum(y.*sin(sqrt(abs(y))),2);
   g = zeros(ps,1);
-  
+
 end
 
 
@@ -196,17 +196,17 @@ end
 
 
 if(I_fno == 12)
-    
+
     if initial_flag == 0
        load Function12
        o = o(1:D);
     end
-  
+
   f = sum(x.*sin(sqrt(abs(x))),2);
   h = sum((x(:,1:D-1).^2-x(:,2:D)).^2,2);
   g = sum(x-100.*cos(0.1.*x)+10,2);
   end
- 
+
 
 if(I_fno==13)
    if initial_flag == 0
@@ -225,24 +225,24 @@ if(I_fno==13)
 end
 
  if(I_fno==14)
-     
+
      if initial_flag == 0
        load Function14
        o = o(1:D);
      end
-   
+
   z = x + 1;
   f = sum(100*(z(:,1:D-1).^2-z(:,2:D)).^2+(z(:,1:D-1)-1).^2,2);
   g1= sum(-x.*cos(sqrt(abs(x))),2)-D;
   g2= sum(x.*cos(sqrt(abs(x))),2)-D;
   g3= sum(x.*sin(sqrt(abs(x))),2)-10*D;
-  g = [g1,g2,g3];  
+  g = [g1,g2,g3];
   h =zeros(ps,1);
  end
 
 
  if(I_fno==15)
-     
+
      if initial_flag == 0
        load Function15
        o = o(1:D);
@@ -253,14 +253,14 @@ end
            load Function15_M_30D
        end
     end
-  
+
   z = x + 1;
   f = sum(100*(z(:,1:D-1).^2-z(:,2:D)).^2+(z(:,1:D-1)-1).^2,2);
   x = x*M;
   g1= sum(-x.*cos(sqrt(abs(x))),2)-D;
   g2= sum(x.*cos(sqrt(abs(x))),2)-D;
   g3= sum(x.*sin(sqrt(abs(x))),2)-10*D;
-  g = [g1,g2,g3];  
+  g = [g1,g2,g3];
   h =zeros(ps,1);
  end
 
@@ -287,9 +287,9 @@ end
   h = [h1,h2];
 
  end
- 
+
  if(I_fno==17)
-  
+
     if initial_flag == 0
        load Function17
        o = o(1:D);
@@ -300,20 +300,18 @@ end
   g2 = sum(x,2);
   g = [g1,g2];
   h = sum(x.*sin(4*sqrt(abs(x))),2);
-  
+
  end
- 
+
   if(I_fno==18)
-   
+
      if initial_flag == 0
        load Function18
        o = o(1:D);
      end
-  
+
   f = sum((x(:,1:D-1)-x(:,2:D)).^2,2);
   g= sum(-x.*sin(sqrt(abs(x))),2)/D;
   h= sum(x.*sin(sqrt(abs(x))),2)/D;
-  
+
  end
-
-

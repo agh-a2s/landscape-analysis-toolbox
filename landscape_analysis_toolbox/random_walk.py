@@ -1,10 +1,10 @@
 import numpy as np
+
 from .utils import apply_bounds
 
 
-def get_starting_zones(num_zones: int) -> list[np.ndarray]:
-    # TODO: read Malan and Engelbrecht (2014) to understand how to generate different starting zones
-    return [np.random.choice([True, False], size=num_zones) for _ in range(num_zones)]
+def get_starting_zones(num_zones: int, dim: int) -> list[np.ndarray]:
+    return [np.random.choice([True, False], size=dim) for _ in range(num_zones)]
 
 
 def progressive_random_walk(
@@ -47,9 +47,7 @@ def progressive_random_walk(
     return walk
 
 
-def simple_random_walk(
-    bounds: np.ndarray, num_steps: int, step_size: float
-) -> np.ndarray:
+def simple_random_walk(bounds: np.ndarray, num_steps: int, step_size: float) -> np.ndarray:
     """
     @inproceedings{malan2014progressive,
         title={A progressive random walk algorithm for sampling continuous fitness landscapes},
