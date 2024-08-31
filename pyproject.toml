@@ -11,7 +11,7 @@ python = "^3.10"
 networkx = "^3.3"
 scipy = "^1.14.0"
 matplotlib = "^3.9.0"
-numpy = "^2.0.1"
+numpy = "^1.26.3"
 plotly = "^5.23.0"
 pandas = "^2.2.2"
 
